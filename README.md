@@ -20,9 +20,9 @@
 
 ## 1. Project Overview
 
-This project simulates and detects an insider data exfiltration attack using **Wazuh**, an open-source Security Information and Event Management (SIEM) platform. A realistic insider threat scenario was constructed in a two-VM lab environment: a malicious employee copies sensitive files to a staging directory, compresses them, manipulates file permissions to bypass access controls, and then deletes the originals to cover their tracks.
+This project simulates and detects an insider data exfiltration attack using Wazuh, an open-source Security Information and Event Management (SIEM) platform. A realistic insider threat scenario was constructed in a two-VM lab environment: a malicious employee copies sensitive files to a staging directory, compresses them, manipulates file permissions to bypass access controls, and then deletes the originals to cover their tracks.
 
-The objective was to demonstrate that Wazuh's **File Integrity Monitoring (FIM)** module — when properly configured — can detect each stage of this attack chain in real time, generate correlated alerts, and provide enough forensic data to reconstruct a complete attack timeline for incident response purposes.
+The objective was to demonstrate that Wazuh's File Integrity Monitoring (FIM) module, when properly configured, can detect each stage of this attack chain in real time, generate correlated alerts, and provide enough forensic data to reconstruct a complete attack timeline for incident response purposes.
 
 **Key outcomes:**
 - Successfully triggered Wazuh alerts at every stage of the attack (staging, compression, permission change, deletion)
@@ -35,7 +35,7 @@ The objective was to demonstrate that Wazuh's **File Integrity Monitoring (FIM)*
 
 ### Why Wazuh Matters in Incident Response
 
-Insider threats are among the most difficult attack vectors to detect because the attacker already has legitimate credentials and authorized access to systems. Traditional perimeter-based security controls — firewalls, intrusion detection systems — are largely blind to this class of threat. What matters is visibility into *what happens to files and data* after someone logs in.
+Insider threats are among the most difficult attack vectors to detect because the attacker already has legitimate credentials and authorized access to systems. Traditional perimeter-based security controls (firewalls, intrusion detection systems) are largely blind to this class of threat. What matters is visibility into what happens to files and data after someone logs in.
 
 Wazuh addresses this gap through several capabilities that are directly relevant to IR practice:
 
@@ -180,7 +180,7 @@ The sequence unambiguously confirms insider exfiltration behavior: data was move
 
 ### Key Findings
 
-This project demonstrated that Wazuh's FIM module, when deployed with real-time monitoring on high-value directories, provides sufficient visibility to detect every stage of a realistic insider data exfiltration attempt. No stage of the attack went undetected. Critically, the combination of alerts — not any single event — is what makes the insider threat pattern visible. A file copy alone could be routine; a file copy followed by compression, permission change, and source deletion is a pattern with very few innocent explanations.
+This project demonstrated that Wazuh's FIM module, when deployed with real-time monitoring on high-value directories, provides sufficient visibility to detect every stage of a realistic insider data exfiltration attempt. No stage of the attack went undetected. Critically, the combination of alerts, not any single event, is what makes the insider threat pattern visible. A file copy alone could be routine; a file copy followed by compression, permission change, and source deletion is a pattern with very few innocent explanations.
 
 ### Lessons Learned
 
@@ -188,12 +188,12 @@ This project demonstrated that Wazuh's FIM module, when deployed with real-time 
 
 **On investigation:** Timestamp-ordered log reconstruction is the foundation of timeline analysis in IR. Wazuh's dashboard makes this accessible, but in a production environment this workflow maps directly to working with a SIEM query interface or SOAR playbook.
 
-**On attacker tradecraft:** The four-step pattern used here — stage, compress, permission-open, delete originals — is not hypothetical. It reflects real-world insider threat behavior documented in public case studies. Defenders who understand this playbook can tune detection rules accordingly.
+**On attacker tradecraft:** The four-step pattern used here (stage, compress, permission-open, delete originals) is not hypothetical. It reflects real-world insider threat behavior documented in public case studies. Defenders who understand this playbook can tune detection rules accordingly.
 
 ### Potential Improvements
 
 - **Alert tuning:** Add a custom Wazuh rule to fire a high-severity composite alert when file creation *and* deletion events occur in the same monitored directory within a short time window, reducing the analyst workload of manual correlation.
-- **Network visibility:** Extend the lab to include network traffic capture (Zeek or Suricata) so that the actual exfiltration transfer — if it had occurred — would also be logged. FIM detects preparation; network monitoring detects execution.
+- **Network visibility:** Extend the lab to include network traffic capture (Zeek or Suricata) so that the actual exfiltration transfer would also be logged. FIM detects preparation; network monitoring detects execution.
 - **User behavior baselining:** In a real deployment, Wazuh can be integrated with UEBA tools to establish a baseline of normal file access patterns per user, making anomaly detection more precise and reducing false positives.
 - **Automated response:** Configure Wazuh's active response module to automatically disable the offending user account or block outbound traffic upon detection of the exfiltration pattern, reducing dwell time.
 
@@ -210,10 +210,7 @@ This project demonstrated that Wazuh's FIM module, when deployed with real-time 
 │   ├── file-deleted-event.png
 │   └── timeline-reconstruction.png
 ├── config/
-│   └── ossec.conf             ← Wazuh agent syscheck configuration
-└── logs/
-    └── sample-fim-alerts.json ← Sample exported FIM alert data
-```
+    └── ossec.conf             ← Wazuh agent syscheck configuration
 
 ---
 
