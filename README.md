@@ -166,12 +166,14 @@ The sequence unambiguously confirms insider exfiltration behavior: data was move
 
 | Screenshot | Description |
 |---|---|
-| `wazuh-fim-alerts.png` | Wazuh dashboard showing FIM alert feed during the attack |
-| `file-added-event.png` | Alert detail for file creation in `C:\Temp` |
-| `permission-change-event.png` | Alert detail showing ACL modification on `stolen_data.zip` |
-| `file-deleted-event.png` | Alert detail for source file deletion |
-| `timeline-reconstruction.png` | Wazuh event log sorted by timestamp showing full attack chain |
-
+| `lab-architecture.png` | Wazuh agent dashboard confirming win-victim (001) active |
+| `sensitive-files.png` | Source sensitive files targeted by the insider (salaries.txt, budget.txt, project.txt) |
+| `data-staging.png` | stolen_data.zip present in C:\Temp after staging step |
+| `permission-change-event.png` | File properties showing Everyone: Full Control granted |
+| `wazuh-fim-alerts.png` | Wazuh FIM event feed showing rules 553, 554, 550 triggered |
+| `wazuh-dashboard-overview.png` | Security events dashboard showing alert spike during attack window |
+| `timeline-reconstruction.png` | Chronological event list showing file added, deleted, and checksum changed |
+| `mitre-attck-mapping.png` | MITRE ATT&CK T1565.001 auto-mapped to integrity checksum alerts |
 ---
 
 ## 5. Conclusion
